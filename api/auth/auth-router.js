@@ -17,10 +17,10 @@ router.post('/register', async (req, res, next) => {
       const data = await Users.add(credentials)
       return res.status(201).json(data)
     } catch {
-      res.json("username taken")
+      res.status(400).json("username taken")
     }
   } else {
-    res.json("username and password required")
+    res.status(400).json("username and password required")
   }
 });
 
@@ -34,11 +34,11 @@ router.post('/login', (req, res) => {
           const token = generateToken(user)
           res.json({ message: `welcome, ${username}`, token })
         } else {
-          res.json("invalid credentials")
+          res.status(400).json("invalid credentials")
         }
       })
   } else {
-    res.json("username and password required")
+    res.status(400).json("username and password required")
   }
 });
 
